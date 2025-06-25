@@ -1,22 +1,21 @@
-````md
-# 🚛 Vehicle Load Prediction using Engine Telemetry
+# Vehicle Load Prediction using Engine Telemetry
 
 A machine learning system to predict vehicle **load weight** and detect **overload conditions** using **engine telemetry data** and **baseline dynamo profiles** per vehicle.
 
 ---
 
-## 🔧 Features
+## Features
 
-- ✅ Predict **vehicle weight** using regression
-- ✅ Classify **load status** as `Normal` or `Overload`
-- ✅ Analyze **engine strain** vs. baseline dynamo profile
-- ✅ Works with real-time or simulated telemetry
-- ✅ Handles extreme cases & gear/rpm mismatches
-- ✅ Easily extendable to fleets
+-  Predict **vehicle weight** using regression
+-  Classify **load status** as `Normal` or `Overload`
+-  Analyze **engine strain** vs. baseline dynamo profile
+-  Works with real-time or simulated telemetry
+-  Handles extreme cases & gear/rpm mismatches
+-  Easily extendable to fleets
 
 ---
 
-## 📥 Input Data
+## Input Data
 
 The model uses a mix of **raw telemetry** and **derived features**:
 
@@ -32,7 +31,7 @@ The model uses a mix of **raw telemetry** and **derived features**:
 
 ---
 
-## 🧠 Model Architecture
+## Model Architecture
 
 | Task           | Algorithm         | Notes                      |
 |----------------|-------------------|----------------------------|
@@ -41,7 +40,7 @@ The model uses a mix of **raw telemetry** and **derived features**:
 
 ---
 
-## ⚙️ Baseline Dynamo Profiles
+## Baseline Dynamo Profiles
 
 Each vehicle (e.g., `truck_001`) has an expected **torque/tonne ratio**, based on healthy performance.  
 The model compares predicted load to current torque to detect **abnormal strain**.
@@ -55,7 +54,7 @@ Actual:   28.9 Nm/tonne
 
 ---
 
-## 📊 Sample Output (Full Prediction)
+## Sample Output (Full Prediction)
 
 ```txt
 🚛 Vehicle: truck_001
@@ -74,7 +73,7 @@ Voltage: 27.2 V | Stress Index: 146.25
 
 ---
 
-## 🧪 Stress Testing
+## Stress Testing
 
 Tested across edge cases:
 
@@ -88,7 +87,7 @@ Result: **Model remained stable and explainable.**
 
 ---
 
-## 🗃️ Model Saving
+## Model Saving
 
 Trained models are saved using `joblib`:
 
@@ -99,7 +98,7 @@ joblib.dump(regression_model, "regressor_fleet_dynamo.pkl")
 
 ---
 
-## 🚀 Next Steps
+##  Next Steps
 
 * [ ] Balance training data (overload class)
 * [ ] Add real vehicle dynamo data
@@ -108,7 +107,7 @@ joblib.dump(regression_model, "regressor_fleet_dynamo.pkl")
 
 ---
 
-## 🛠️ Built With
+## Built With
 
 * Python 3.11
 * XGBoost
