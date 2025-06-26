@@ -33,10 +33,69 @@ The model uses a mix of **raw telemetry** and **derived features**:
 
 ## Model Architecture
 
-| Task           | Algorithm         | Notes                      |
-|----------------|-------------------|----------------------------|
-| Load Estimation | XGBoost Regressor | MAE ≈ 0.21 tonnes, R² ≈ 0.99 |
-| Load Status     | Random Forest     | High precision, needs more overload samples |
+The system is composed of two machine learning models, each optimized for a specific task:
+
+---
+
+### 1. Load Estimation Model  
+**Algorithm:** `XGBoost Regressor`
+
+| Metric                     | Value                        |
+|----------------------------|------------------------------|
+| Target                     | Estimated load (tonnes)      |
+| Input Features             | 12 telemetry + derived features |
+| Mean Absolute Error (MAE)  | **0.21 tonnes**              |
+| R² Score                   | **0.994**                    |
+| Inference Time             | ~3 ms per instance           |
+| Notes                      | High accuracy, robust generalization |
+
+**Top Feature Importance:**
+
+| Feature Name              | Description                                  |
+|---------------------------|----------------------------------------------|
+| `torque`                  | Base engine output                           |
+| `power_kw`                | Torque × RPM converted to kilowatts          |
+| `stress_index`            | Torque load adjusted for elevation and speed |
+| `rpm_pg`                  | RPM normalized by gear                       |
+| `torque_elevation_ratio`  | Torque normalized by gradient                |
+
+---
+
+### 2. Load Status Classification Model  
+**Algorithm:** `Random Forest Classifier`
+
+| Metric                  | Value                            |
+|-------------------------|----------------------------------|
+| Target                  | Load status (`Normal` / `Overload`) |
+| Accuracy                | **99%**                          |
+| Precision (Overload)    | **1.00**                         |
+| Recall (Overload)       | **0.17**                         |
+| F1 Score (Overload)     | **0.29**                         |
+| Notes                   | Needs better overload representation |
+
+**Class Distribution (Training Data):**
+
+| Class      | Samples |
+|------------|---------|
+| Normal     | 4994    |
+| Overload   | 6       |
+
+**Strengths:**
+- Very high precision (zero false positives).
+- Low variance due to ensemble method.
+- Interpretable, easy to debug.
+
+**Limitations:**
+- Extremely low recall on `Overload` due to class imbalance.
+- May benefit from SMOTE or adjusted classification threshold.
+
+---
+
+### Combined Logic Flow
+
+1. The **regression model** estimates current vehicle load in tonnes.
+2. The **classification model** uses stress indicators and gear dynamics to determine overload status.
+3. A per-vehicle **baseline dynamo profile** is used to detect abnormal torque-per-tonne strain, flagging issues even if the classifier predicts "Normal".
 
 ---
 
