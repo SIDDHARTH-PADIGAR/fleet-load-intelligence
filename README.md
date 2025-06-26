@@ -49,7 +49,7 @@ Example:
 ```txt
 Expected: 19.4 Nm/tonne
 Actual:   28.9 Nm/tonne
-❗ Abnormal strain detected
+Abnormal strain detected
 ````
 
 ---
@@ -57,18 +57,18 @@ Actual:   28.9 Nm/tonne
 ## Sample Output (Full Prediction)
 
 ```txt
-🚛 Vehicle: truck_001
+Vehicle: truck_001
 Torque: 390 Nm | RPM: 1800 | Gear: 4 | Speed: 28 km/h | Elevation: 10.5%
 Voltage: 27.2 V | Stress Index: 146.25
 
-🔍 Model Prediction:
-🔹 Load Status: Overload (62.0%)
-🔹 Estimated Weight: 13.47 tonnes
+Model Prediction:
+Load Status: Overload (62.0%)
+Estimated Weight: 13.47 tonnes
 
-⚙️ Baseline Comparison:
-🔸 Expected Torque/Tonne: 19.39
-🔸 Actual Torque/Tonne: 28.95
-❗ Abnormal strain detected
+Baseline Comparison:
+Expected Torque/Tonne: 19.39
+Actual Torque/Tonne: 28.95
+Abnormal strain detected
 ```
 
 ---
